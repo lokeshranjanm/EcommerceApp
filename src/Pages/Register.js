@@ -2,9 +2,12 @@ import { TextField } from "@mui/material";
 import { React, useState } from "react";
 import "./styles/Register.css";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
+  const history = useHistory();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -102,32 +105,48 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.name.trim() === "") {
-      setErrors({
-        ...errors,
-        name: "Username cannot be empty",
-      });
+
+    if (
+      formData.name.trim === "" ||
+      formData.email.trim() === "" ||
+      formData.password.trim() === "" ||
+      formData.confirmPassword.trim() === ""
+    ) {
+      window.alert("All Fields is mandatory");
+      return;
     }
 
-    if (formData.email.trim() === "") {
-      setErrors({
-        ...errors,
-        email: "Email cannot be empty",
-      });
-    }
+    if (Object.keys(errors).every((key) => !errors[key])) {
+      const payload = {
+        username: formData.name,
+        email: formData.email,
+        password: formData.password,
+      };
 
-    if (formData.password.trim() === "") {
-      setErrors({
-        ...errors,
-        password: "Password cannot be empty",
-      });
-    }
-
-    if (formData.confirmPassword.trim() === "") {
-      setErrors({
-        ...errors,
-        confirmPassword: "Confirm password cannot be empty",
-      });
+      axios
+        .post(
+          `http://localhost:7777/users/register`,
+          
+            payload,
+          
+          {
+            headers: {
+              "X-Requested-With": "XMLHttpRequest",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response)
+          if (response.data === "SUCCESS") {
+            window.alert("You are resgister successfully");
+            history.push("/signin");
+          } else if (response.data === "USER_ALREADY_EXISTS") {
+            window.alert("You are resgister successfully");
+          }
+        })
+        .catch((error) => {
+          console.log(error, "api failure");
+        });
     }
   };
 
