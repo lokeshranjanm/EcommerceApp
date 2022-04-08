@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Typography, Divider, Button, ButtonGroup } from "@mui/material";
 import ProductCard from "../Components/ProductCard";
 import Header from "../Components/Header";
@@ -20,6 +20,16 @@ import BillDetails from "../Components/BillDetails";
 const Checkout = () => {
   const history = useHistory();
   const params = useParams();
+
+  const [product, setProduct] = useState(
+    JSON.parse(localStorage.getItem("cart"))
+  );
+
+  // useEffect(() => {
+  //   setProduct(JSON.parse(localStorage.getItem("cart")));
+  // }, []);
+
+  console.log(product);
 
   return (
     <>
@@ -43,16 +53,16 @@ const Checkout = () => {
               <Typography
                 style={{ fontSize: "16px", fontWeight: 600, marginBottom: 15 }}
               >
-                Shopping Bag (6 items)
+                Shopping Bag (1 items)
               </Typography>
-              <BagItems />
+              <BagItems product={product[0]} />
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={5}>
               <div style={{ marginTop: 40 }}>
                 <AddressCard />
               </div>
               <div style={{ marginTop: 40 }}>
-                <BillDetails />
+                <BillDetails product={product[0]} />
               </div>
             </Grid>
           </Grid>

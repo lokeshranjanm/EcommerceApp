@@ -6,9 +6,16 @@ import CarouselComponent from "../Components/CarouselComponent";
 import Category from "../Components/Category";
 import TopProducts from "../Components/TopProducts";
 import Footer from "./Footer";
+import { useHistory } from "react-router-dom";
 // import Product from "../Pages/Product"
 
-function Home() {
+const Home = () => {
+  const history = useHistory();
+  const authentiction = localStorage.getItem("customer") ? true : false;
+
+  if (!authentiction) {
+    history.push("/signin");
+  }
   return (
     <div>
       <Header />
@@ -18,6 +25,6 @@ function Home() {
       <Footer />
     </div>
   );
-}
+};
 
 export default Home;

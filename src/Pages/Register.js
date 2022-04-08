@@ -126,9 +126,9 @@ const Register = () => {
       axios
         .post(
           `http://localhost:7777/users/register`,
-          
-            payload,
-          
+
+          payload,
+
           {
             headers: {
               "X-Requested-With": "XMLHttpRequest",
@@ -136,7 +136,7 @@ const Register = () => {
           }
         )
         .then((response) => {
-          console.log(response)
+          console.log(response);
           if (response.data === "SUCCESS") {
             window.alert("You are resgister successfully");
             history.push("/signin");
@@ -193,6 +193,7 @@ const Register = () => {
       />
 
       <TextField
+        required
         label="Password"
         name="password"
         type="password"
@@ -212,6 +213,7 @@ const Register = () => {
       />
 
       <TextField
+        required
         label="Confirm Password"
         name="confirmPassword"
         type="password"

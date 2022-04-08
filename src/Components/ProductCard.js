@@ -2,20 +2,27 @@ import { Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ url }) => {
+const ProductCard = ({ product }) => {
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
+        border: "1px solid #E6E6E6",
+        padding: "12px",
       }}
     >
-      {" "}
-      <div style={{ border: "1px solid #E6E6E6", height: 247 }}>
-        <Link to="">
+      <div
+        style={{
+          border: "1px solid #E6E6E6",
+          borderRadius: "8px",
+          height: 250,
+        }}
+      >
+        <Link to={`/product-details/${product.productId}`}>
           <img
-            src={url}
+            src={product.url}
             // className="thumbnail"
             alt=""
             style={{
@@ -34,15 +41,15 @@ const ProductCard = ({ url }) => {
           marginTop: 5,
         }}
       >
-        Roadster
+        {product.productName}
       </Typography>
       <Typography style={{ fontSize: "14px", color: "grey", marginTop: 6 }}>
-        Printed A-Line Kurta
+        {product.productDesc}
       </Typography>
       <Typography
         style={{ fontSize: "16px", fontWeight: "bold", marginTop: 10 }}
       >
-        ₹500
+        ₹{product.productPrice}
       </Typography>
     </div>
   );
