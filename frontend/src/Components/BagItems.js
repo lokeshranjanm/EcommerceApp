@@ -13,7 +13,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 
-const BagItems = () => {
+const BagItems = ({ product }) => {
   const history = useHistory();
 
   return (
@@ -22,10 +22,7 @@ const BagItems = () => {
         <Grid item xs={12} sm={12} md={7} lg={7}>
           <div style={{ display: "flex", justifyContent: "flex-start" }}>
             <div style={{ marginRight: 12 }}>
-              <img
-                style={{ height: "200px" }}
-                src="https://res.cloudinary.com/drzudfgzl/image/upload/v1596103469/ys00seex0dggkdsy0gqx.jpg"
-              />
+              <img style={{ height: "200px" }} src={product.url} />
             </div>
             <div>
               <Typography
@@ -35,12 +32,12 @@ const BagItems = () => {
                   fontWeight: "bold",
                 }}
               >
-                Roadster
+                {product.productName}
               </Typography>
               <Typography
                 style={{ fontSize: "14px", color: "grey", marginTop: "6px" }}
               >
-                Printed A-Line Kurta
+                {product.productDesc}
               </Typography>
             </div>
           </div>
@@ -54,7 +51,7 @@ const BagItems = () => {
                 fontWeight: "bold",
               }}
             >
-              Qty: 1 x ₹307 = ₹3077890
+              Qty: 1 x ₹{product.productPrice} = ₹{product.productPrice}
             </Typography>
           </div>
         </Grid>

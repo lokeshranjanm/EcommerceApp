@@ -11,6 +11,8 @@ const Footer = () => {
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
+      
+        width: "100%",
       }}
     >
       <span style={{ fontWeight: "600", color: "white", fontSize: "16px" }}>

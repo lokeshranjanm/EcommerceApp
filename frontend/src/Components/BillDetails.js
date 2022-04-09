@@ -23,7 +23,7 @@ import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import AddressForm from "../Pages/AddressForm";
 import CloseIcon from "@mui/icons-material/Close";
 
-const BillDetails = () => {
+const BillDetails = ({ product }) => {
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const [scale, setScale] = useState(1);
@@ -67,10 +67,10 @@ const BillDetails = () => {
             <Typography
               style={{ fontSize: "14px", fontWeight: 500, marginBottom: 5 }}
             >
-              ₹307
+              ₹{product.productPrice}
             </Typography>
             <Typography style={{ fontSize: "14px", fontWeight: 500 }}>
-              ₹25
+              ₹0
             </Typography>
           </div>
         </div>
@@ -89,7 +89,7 @@ const BillDetails = () => {
             Total Order
           </Typography>
           <Typography style={{ fontSize: "15px", fontWeight: 560 }}>
-            ₹332
+            ₹{product.productPrice}
           </Typography>
         </div>
         <Button
@@ -97,7 +97,11 @@ const BillDetails = () => {
           style={{ textTransform: "none", width: 200, marginTop: 30 }}
           variant="contained"
           color="primary"
-          // onClick={() => setOpen(true)}
+          onClick={() => {
+            window.alert("Order  Placed Successfully");
+            history.push("/");
+            localStorage.removeItem("cart");
+          }}
         >
           Place Order
         </Button>
