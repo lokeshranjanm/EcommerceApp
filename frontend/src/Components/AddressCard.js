@@ -46,7 +46,7 @@ const AddressCard = () => {
             Delivery Address
           </Typography>
 
-          {false && (
+          {true && (
             <Button
               size="large"
               style={{ textTransform: "none" }}
@@ -58,7 +58,7 @@ const AddressCard = () => {
             </Button>
           )}
         </div>
-        {false && (
+        {true && (
           <Typography
             style={{
               fontSize: "14px",
@@ -68,7 +68,7 @@ const AddressCard = () => {
             Address not added, Please add your address!
           </Typography>
         )}
-        {true && (
+        {false && (
           <div>
             <Typography
               style={{ fontSize: "15px", fontWeight: 530, marginBottom: 6 }}
@@ -217,7 +217,7 @@ const AddressCard = () => {
                 style={{ textTransform: "none", width: 130 }}
                 variant="contained"
                 color="primary"
-                // onClick={() => setOpen(true)}
+                onClick={() => setOpen(false)}
               >
                 Save
               </Button>
