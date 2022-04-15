@@ -98,7 +98,7 @@ const BillDetails = ({ product }) => {
           variant="contained"
           color="primary"
           onClick={() => {
-            window.alert("Order  Placed Successfully");
+            window.alert("Order Placed Successfully");
             history.push("/");
             localStorage.removeItem("cart");
           }}

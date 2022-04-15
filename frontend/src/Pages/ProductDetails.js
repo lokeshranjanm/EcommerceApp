@@ -35,7 +35,7 @@ const ProductDetails = () => {
   }, []);
 
   const getProduct = async () => {
-    console.log("basant Janghel");
+    console.log("lokesh ranjan");
 
     await axios
       .get(`http://localhost:7777/product/get/${params.productId}`, {
