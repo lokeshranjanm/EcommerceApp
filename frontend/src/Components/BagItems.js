@@ -70,6 +70,10 @@ const BagItems = ({ product }) => {
             variant="contained"
             color="error"
             startIcon={<RemoveShoppingCartIcon />}
+            onClick={() => {
+              localStorage.removeItem("cart");
+              history.push("/");
+            }}
           >
             Remove
           </Button>

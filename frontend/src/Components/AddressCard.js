@@ -25,8 +25,61 @@ import CloseIcon from "@mui/icons-material/Close";
 
 const AddressCard = () => {
   const history = useHistory();
+  const customer = JSON.parse(localStorage.getItem("customer"));
+  const address = JSON.parse(localStorage.getItem("address"));
   const [open, setOpen] = useState(false);
-  const [scale, setScale] = useState(1);
+  const [isAddress, setIsAddress] = useState(
+    JSON.parse(localStorage.getItem("address") ? true : false)
+  );
+  const [formData, setFormData] = useState({
+    name: customer.username,
+    mobile: "",
+    addressLine1: "",
+    addressLine2: "",
+    pincode: "",
+    state: "",
+    city: "",
+  });
+
+  const handleFormData = (e) => {
+    setFormData((formData) => {
+      return { ...formData, [e.target.name]: e.target.value };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      formData.name.trim() === "" ||
+      formData.addressLine1.trim() === "" ||
+      formData.addressLine2.trim() === "" ||
+      formData.city.trim() === "" ||
+      formData.pincode.trim() === "" ||
+      formData.state.trim() === "" ||
+      formData.mobile.trim() === ""
+    ) {
+      window.alert("All Fields is mandatory");
+      return;
+    }
+
+    const payload = {
+
+      name: formData.name,
+      mobile: formData.mobile,
+      addressLine1: formData.addressLine1,
+      addressLine2: formData.addressLine2,
+      pincode: formData.pincode,
+      city: formData.city,
+      state: formData.state,
+    };
+    console.log(payload)
+
+    localStorage.setItem("address", JSON.stringify(payload));
+    window.alert("Address Saved Successfully");
+    setOpen(false);
+    window.location.reload(true);
+  };
 
   return (
     <>
@@ -46,7 +99,7 @@ const AddressCard = () => {
             Delivery Address
           </Typography>
 
-          {true && (
+          {!isAddress && (
             <Button
               size="large"
               style={{ textTransform: "none" }}
@@ -58,7 +111,7 @@ const AddressCard = () => {
             </Button>
           )}
         </div>
-        {true && (
+        {!isAddress && (
           <Typography
             style={{
               fontSize: "14px",
@@ -68,20 +121,21 @@ const AddressCard = () => {
             Address not added, Please add your address!
           </Typography>
         )}
-        {false && (
+        {isAddress && (
           <div>
             <Typography
               style={{ fontSize: "15px", fontWeight: 530, marginBottom: 6 }}
             >
-              Lokesh Ranjan
+              {address.name}
             </Typography>
             <Typography style={{ fontSize: "12px", fontWeight: 400 }}>
-              8839786078
+              {address.mobile}
             </Typography>
             <Typography
               style={{ fontSize: "12px", fontWeight: 400, marginBottom: 6 }}
             >
-              33 A, Ward No 21, Baloda Bazar
+              {address.addressLine1}, {address.addressLine2}, {address.city},{" "}
+              {address.state} - {address.pincode}
             </Typography>
           </div>
         )}
@@ -146,7 +200,20 @@ const AddressCard = () => {
               required
               id="outlined-required"
               label="Name"
+              name="name"
               style={{ marginTop: 5, width: "100%" }}
+              value={formData.name}
+              onChange={handleFormData}
+            />
+            <TextField
+              size="small"
+              required
+              id="outlined-required"
+              label="Mobile Number"
+              name="mobile"
+              style={{ marginTop: 30, width: "100%" }}
+              value={formData.mobile}
+              onChange={handleFormData}
             />
 
             <TextField
@@ -155,12 +222,18 @@ const AddressCard = () => {
               id="outlined-required"
               label="Address Line 1"
               style={{ marginTop: 30, width: "100%" }}
+              name="addressLine1"
+              value={formData.addressLine1}
+              onChange={handleFormData}
             />
             <TextField
               size="small"
               id="outlined-required"
               label="Address Line 2"
               style={{ marginTop: 30, width: "100%" }}
+              name="addressLine2"
+              value={formData.addressLine2}
+              onChange={handleFormData}
             />
             <TextField
               size="small"
@@ -168,6 +241,9 @@ const AddressCard = () => {
               id="outlined-required"
               label="Pincode"
               style={{ marginTop: 30, width: "100%" }}
+              name="pincode"
+              value={formData.pincode}
+              onChange={handleFormData}
             />
             <TextField
               size="small"
@@ -175,6 +251,9 @@ const AddressCard = () => {
               id="outlined-required"
               label="City"
               style={{ marginTop: 30, width: "100%" }}
+              name="city"
+              value={formData.city}
+              onChange={handleFormData}
             />
             <TextField
               size="small"
@@ -182,6 +261,9 @@ const AddressCard = () => {
               id="outlined-required"
               label="State"
               style={{ marginTop: 30, width: "100%" }}
+              name="state"
+              value={formData.state}
+              onChange={handleFormData}
             />
           </div>
           <div
@@ -217,7 +299,7 @@ const AddressCard = () => {
                 style={{ textTransform: "none", width: 130 }}
                 variant="contained"
                 color="primary"
-                onClick={() => setOpen(false)}
+                onClick={ handleSubmit}
               >
                 Save
               </Button>

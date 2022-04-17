@@ -17,14 +17,11 @@ const Products = () => {
   const params = useParams();
   const [sortby, setSortBy] = useState("recommended");
   const [products, setProducts] = useState([]);
+
   const [loader, setLoader] = useState(false);
 
   const categoryId =
     params.category === "sports" ? 3 : params.category === "clothing" ? 1 : 2;
-
-  const handleChange = (e) => {
-    setSortBy(e.target.value);
-  };
 
   useEffect(() => {
     getProductsByCategory();
@@ -48,6 +45,23 @@ const Products = () => {
         console.log(error, "api failure");
         setLoader(false);
       });
+  };
+
+  const handleChange = async (e) => {
+    if (e.target.value === "lowtohigh") {
+      setSortBy(e.target.value);
+      setProducts(
+        products?.sort((a, b) => (a.productPrice > b.productPrice ? 1 : -1))
+      );
+    } else if (e.target.value === "hightolow") {
+      setSortBy(e.target.value);
+      setProducts(
+        products?.sort((a, b) => (a.productPrice > b.productPrice ? -1 : 1))
+      );
+    } else {
+      setSortBy(e.target.value);
+      getProductsByCategory();
+    }
   };
 
   return (
@@ -105,7 +119,7 @@ const Products = () => {
                     onChange={(e) => handleChange(e)}
                   >
                     <MenuItem value={"recommended"}>Recommended</MenuItem>
-                    <MenuItem value={"lowtogigh"}>Price Low to High</MenuItem>
+                    <MenuItem value={"lowtohigh"}>Price Low to High</MenuItem>
                     <MenuItem value={"hightolow"}>Price High to Low</MenuItem>
                   </Select>
                 </FormControl>

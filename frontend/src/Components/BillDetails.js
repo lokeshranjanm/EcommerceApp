@@ -97,8 +97,9 @@ const BillDetails = ({ product }) => {
           style={{ textTransform: "none", width: 200, marginTop: 30 }}
           variant="contained"
           color="primary"
+          disabled={JSON.parse(localStorage.getItem("address") ? false : true)}
           onClick={() => {
-            window.alert("Order Placed Successfully");
+            window.alert("Order  Placed Successfully");
             history.push("/");
             localStorage.removeItem("cart");
           }}
