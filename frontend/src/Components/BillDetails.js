@@ -99,7 +99,7 @@ const BillDetails = ({ product }) => {
           color="primary"
           disabled={JSON.parse(localStorage.getItem("address") ? false : true)}
           onClick={() => {
-            window.alert("Order  Placed Successfully");
+            window.alert("Order Placed Successfully");
             history.push("/");
             localStorage.removeItem("cart");
           }}
